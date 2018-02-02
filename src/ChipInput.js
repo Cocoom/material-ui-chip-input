@@ -321,11 +321,16 @@ class ChipInput extends React.Component {
   }
 
   handleUpdateInput = (searchText, dataSource, params) => {
-    this.setState({ inputValue: searchText })
 
     if (this.props.onUpdateInput) {
-      this.props.onUpdateInput(searchText, dataSource, params)
+      const result = this.props.onUpdateInput(searchText, dataSource, params);
+      if (result != null) {
+        this.setState({ inputValue: result });
+        return;
+      }
     }
+
+    this.setState({ inputValue: searchText });
   }
 
   handleAddChip (chip) {
